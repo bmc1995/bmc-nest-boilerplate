@@ -11,13 +11,12 @@ export class AuthController {
   @Post('login')
   async login(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
     console.log(req.headers);
-    const body = await this.authService.login(req.user);
-
-    res.cookie('sesh', body.access_token, {
-      httpOnly: true,
-      maxAge: 60000,
-      signed: true,
-    });
-    res.json(body);
+    return this.authService.login(req.user);
+    // Idea for sessions-based auth:
+    // res.cookie('sesh', sessionToken, {
+    //   httpOnly: true,
+    //   maxAge: 60000,
+    //   signed: true,
+    // });
   }
 }

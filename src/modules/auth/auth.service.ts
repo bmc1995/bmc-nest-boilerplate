@@ -25,7 +25,6 @@ export class AuthService {
     const payload = { username: user.username, sub: user.userId };
     return {
       access_token: this.jwtService.sign(payload),
-      sessionToken: await this.randTokenGen.authToken(),
       message: 'Authentication Success!',
     };
   }
