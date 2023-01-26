@@ -1,25 +1,36 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { User } from '../../database/entities/user/user.entity';
+import { DataSource, Repository } from 'typeorm';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 
-// This should be a real class/interface representing a user entity
-export type User = any;
-
-//TODO define user model & persistence layer
 @Injectable()
 export class UsersService {
-  private readonly users = [
-    {
-      userId: 1,
-      username: 'example@email.com',
-      password: 'password',
-    },
-    {
-      userId: 2,
-      username: 'maria',
-      password: 'guess',
-    },
-  ];
+  constructor(
+    @InjectRepository(User)
+    private userRepository: Repository<User>,
+  ) {}
+  async create(createUserDto: CreateUserDto) {
+    // return 'This action adds a new user';
+    const usr = await this.userRepository.insert(createUserDto);
+    return usr.identifiers;
+  }
 
-  async findOne(username: string): Promise<User | undefined> {
-    return this.users.find((user) => user.username === username);
+  async findAll() {
+    return await this.userRepository.find({});
+  }
+
+  findOne(email: string) {
+    return this.userRepository.findOneBy({ email });
+    // return `This action returns a user with the email: ${email}`;
+  }
+
+  update(id: number, updateUserDto: UpdateUserDto) {
+    return `This action updates a #${id} user`;
+  }
+
+  remove(id: number) {
+    return `This action removes a #${id} user`;
   }
 }
