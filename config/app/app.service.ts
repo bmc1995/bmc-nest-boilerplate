@@ -5,14 +5,14 @@ import { ConfigService } from '@nestjs/config';
 export class AppConfigService {
   constructor(private configService: ConfigService) {}
 
-  get name(): boolean {
-    return this.configService.get('app.appName') === 'true';
+  get name(): string {
+    return this.configService.get('app.appName');
   }
-  get url(): boolean {
-    return this.configService.get('app.appUrl') === 'true';
+  get url(): string {
+    return this.configService.get('app.appUrl');
   }
-  get port(): boolean {
-    return this.configService.get('app.appPort') === 'true';
+  get port(): string {
+    return this.configService.get('app.appPort');
   }
   get jwtSecret(): string {
     return this.configService.get('app.jwtSecret');
