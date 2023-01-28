@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
+import { JwtModule, JwtModuleAsyncOptions } from '@nestjs/jwt';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthService } from './auth.service';
 import { LocalStrategy } from './strategies/local.strategy';
 import { AuthController } from './auth.controller';
-import { JwtModule, JwtModuleAsyncOptions, JwtService } from '@nestjs/jwt';
-import { GenerateRandToken } from 'src/common/utils/crypto';
+import { GenerateRandToken } from '../../common/utils/crypto';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { UsersModule } from '../users/users.module';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { AppConfigService } from 'config/app/app.service';
+import { AppConfigService } from '../../../config/app/app.service';
 
 const registerAsyncOpts: JwtModuleAsyncOptions = {
   imports: [ConfigModule],
