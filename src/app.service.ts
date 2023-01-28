@@ -6,6 +6,6 @@ import { DatabaseConfigService } from 'config/database/database.service';
 export class AppService {
   constructor(private configService: ConfigService) {}
   getHello(): string {
-    return this.configService.get('app.appName');
+    return 'Hello World!';
   }
 }
