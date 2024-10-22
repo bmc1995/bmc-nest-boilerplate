@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import { ConfigObject, ConfigService } from '@nestjs/config';
 import { DatabaseType } from 'typeorm';
 
 @Injectable()
@@ -32,7 +32,7 @@ export class DbConfigService {
   constructor(protected configService: ConfigService) {}
 
   get dbConfigAll() {
-    return this.configService.getOrThrow<object>('database', undefined);
+    return this.configService.getOrThrow<ConfigObject>('database', undefined);
   }
 
   get type() {
@@ -57,5 +57,8 @@ export class DbConfigService {
 
   get autoloadEntities() {
     return this.configService.get<boolean>('database.autoloadEntities');
+  }
+  get url() {
+    return this.configService.get<string>('database.url');
   }
 }
