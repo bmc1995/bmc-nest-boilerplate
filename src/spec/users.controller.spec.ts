@@ -3,7 +3,7 @@ import { UsersController } from '../modules/users/users.controller';
 import { UsersService } from '../modules/users/users.service';
 import { ModuleMocker, MockFunctionMetadata } from 'jest-mock';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { User } from '../modules/users/entities/user.entity';
+import { User } from '../database/repositories/user/user.entity';
 
 const moduleMocker = new ModuleMocker(global);
 
