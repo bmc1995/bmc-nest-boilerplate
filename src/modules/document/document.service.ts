@@ -1,15 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateDocumentDto } from './dto/create-document.dto';
-import { UpdateDocumentDto } from './dto/update-document.dto';
-import { Document } from './entities/document.entity';
+import { CreateDocumentDto } from '../../database/repositories/document/dto/create-document.dto';
+import { UpdateDocumentDto } from '../../database/repositories/document/dto/update-document.dto';
+import { DocumentEntity } from '../../database/repositories/document/document.entity';
 
 @Injectable()
 export class DocumentService {
   constructor(
-    @InjectRepository(Document)
-    private documentRepository: Repository<Document>,
+    @InjectRepository(DocumentEntity)
+    private documentRepository: Repository<DocumentEntity>,
   ) {}
   create(createDocumentDto: CreateDocumentDto) {
     return 'This action adds a new document';
