@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
-import { User } from '../../database/entities/user/user.entity';
+import { User } from 'src/database/repositories/user/user.entity';
 // import { GenerateRandToken } from 'src/common/utils/crypto';
 
 @Injectable()
@@ -12,13 +12,13 @@ export class AuthService {
     private jwtService: JwtService, // private configService: AppConfigService,
   ) {}
 
-  async validateUser(email: string, pass: string): Promise<any> {
+  async validateUser(email: string, hash: string): Promise<any> {
     const user = await this.usersService.findOne(email);
     // console.log(user);
 
-    if (user && user.pass === pass) {
+    if (user && user.hashedPassword === hash) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { pass, ...result } = user;
+      const { hashedPassword, ...result } = user;
       return result;
     }
     return null;

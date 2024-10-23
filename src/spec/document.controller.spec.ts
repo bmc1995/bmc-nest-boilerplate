@@ -1,26 +1,26 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { UsersController } from '../modules/users/users.controller';
-import { UsersService } from '../modules/users/users.service';
-import { ModuleMocker, MockFunctionMetadata } from 'jest-mock';
+import { DocumentController } from '../modules/document/document.controller';
+import { DocumentService } from '../modules/document/document.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { User } from '../database/repositories/user/user.entity';
+import { DocumentEntity } from '../database/repositories/document/document.entity';
+import { ModuleMocker, MockFunctionMetadata } from 'jest-mock';
 
 const moduleMocker = new ModuleMocker(global);
 
-describe('UsersController', () => {
-  let controller: UsersController;
+describe('DocumentController', () => {
+  let controller: DocumentController;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [UsersController],
-      providers: [UsersService],
+      controllers: [DocumentController],
+      providers: [DocumentService],
     })
       .useMocker((token) => {
         const results = ['test1', 'test2'];
-        if (token === UsersService) {
+        if (token === DocumentService) {
           return { findAll: jest.fn().mockResolvedValue(results) };
         }
-        if (token === getRepositoryToken(User)) {
+        if (token === getRepositoryToken(DocumentEntity)) {
           return { findAll: jest.fn().mockResolvedValue(results) };
         }
         if (typeof token === 'function') {
@@ -33,7 +33,7 @@ describe('UsersController', () => {
       })
       .compile();
 
-    controller = module.get<UsersController>(UsersController);
+    controller = module.get<DocumentController>(DocumentController);
   });
 
   it('should be defined', () => {
